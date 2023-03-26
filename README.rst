@@ -5,23 +5,9 @@ Play with GitHub Flow in Embedded Context
 Repository health
 *****************
 
-TODO: Add badges and links from/to github actions
+Branch :code:`main`: |health_main|
 
-TODO: Setup github actions with following steps::
-
-   spawn new windows box
-   clone repository
-   checkout branch
-   install git for windows (this ships with mingw environment)
-
-   execute bash.exe -c './makew -j4 unittest'
-
-   if the branch is the integration branch then perform the build of the binary for the target system and download it:
-   bash.exe -c './makew download DEVICE=1'
-
-
-   archive the artifacts matching the patterns 'out/**/*.hex', 'out/**/*.log'.
-
+.. |health_main| image::https://github.com/basejumpa/arduCar/actions/workflows/main.yml/badge.svg?branch=main
 
 Contributor's Guide
 *******************
@@ -32,7 +18,6 @@ Initial setup of repository
 #. **Fork** this repository from the https://github.com/basejumpa/arduCar into your personal space on the server using the GitHub web interface.
 #. **Clone** your fork somewhere onto your local harddrive. Your fork is the remote with name :code:`origin`
 #. **Configure** this repository as the upstream repository :code:`git remote add upstream https://github.com/basejumpa/arduCar.git`
-
 
 For each contribution do
 ========================

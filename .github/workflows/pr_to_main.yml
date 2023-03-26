@@ -1,13 +1,13 @@
-name: Main branch
+name: Pull request to main branch
 
 on:
-  push:
-    branches: [ "main" ]
+    pull_request:
+      branches: [ "main" ]
 
 jobs:
   build:
 
-    runs-on: self-hosted
+    runs-on: windows_latest
 
     steps:
     - name: Check out
@@ -20,10 +20,6 @@ jobs:
     - name: Create target binary
       shell: bash
       run: ./makew binary
-
-    - name: Download binary to target
-      shell: bash
-      run: ./makew download
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
