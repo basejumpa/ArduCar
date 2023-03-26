@@ -1,0 +1,23 @@
+#include "packageE.h"
+
+#ifndef packageE_init
+#define packageE_init packageE_init
+void packageE_init(void){}
+#endif /* packageE_init */
+
+#ifndef packageE_loop
+#define packageE_loop packageE_loop
+void packageE_loop(void){}
+#endif /* packageE_loop */
+
+#ifndef packageE_setU
+#define packageE_setU packageE_setU
+int packageE_setU__args__u = 0;
+void packageE_setU(int u){ packageE_setU__args__u = u; }
+#endif /* packageE_setU */
+
+#ifndef packageE_getY
+#define packageE_getY packageE_getY
+int packageE_getY__return;
+int packageE_getY(void){ return packageE_getY__return; }
+#endif /* packageE_getY */

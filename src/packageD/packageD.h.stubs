@@ -1,0 +1,23 @@
+#include "packageD.h"
+
+#ifndef packageD_init
+#define packageD_init packageD_init
+void packageD_init(void){}
+#endif /* packageD_init */
+
+#ifndef packageD_loop
+#define packageD_loop packageD_loop
+void packageD_loop(void){}
+#endif /* packageD_loop */
+
+#ifndef packageD_setU
+#define packageD_setU packageD_setU
+int packageD_setU__args__u = 0;
+void packageD_setU(int u){ packageD_setU__args__u = u; }
+#endif /* packageD_setU */
+
+#ifndef packageD_getY
+#define packageD_getY packageD_getY
+int packageD_getY__return;
+int packageD_getY(void){ return packageD_getY__return; }
+#endif /* packageD_getY */

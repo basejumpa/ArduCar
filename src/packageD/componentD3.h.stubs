@@ -1,0 +1,23 @@
+#include "componentD3.h"
+
+#ifndef componentD3_init
+#define componentD3_init componentD3_init
+void componentD3_init(void){}
+#endif /* componentD3_init */
+
+#ifndef componentD3_loop
+#define componentD3_loop componentD3_loop
+void componentD3_loop(void){}
+#endif /* componentD3_loop */
+
+#ifndef componentD3_setU
+#define componentD3_setU componentD3_setU
+int componentD3_setU__args__u;
+void componentD3_setU(int u){ componentD3_setU__args__u = u; }
+#endif /* componentD3_setU */
+
+#ifndef componentD3_getY
+#define componentD3_getY componentD3_getY
+int componentD3_getY__return = 0;
+int componentD3_getY(void){ return componentD3_getY__return; }
+#endif /* componentD3_getY */

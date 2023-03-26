@@ -1,0 +1,30 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - name: Check out
+      uses: actions/checkout@v3
+
+    - name: Test units
+      shell: bash
+      run: ./makew unittest
+
+    - name: Create target binary
+      shell: bash
+      run: ./makew binary
+
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        path: |
+            out/**/*.hex
+            out/**/*.elf
+            out/**/*.log

@@ -1,0 +1,7 @@
+
+makew.bat
+makew_settings.mk
+
+*.orig
+
+out/

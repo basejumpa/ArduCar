@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+MAKEW__WRAPPED_EXECUTABLE=/usr/bin/make.exe
+MAKEW__INDICATOR_IT_IS_INSTALLED=/usr/bin/make.exe
+MAKEW__REPO_URL=https://github.com/basejumpa/arduCar_tools/raw/main/makew.zip
+
+function prerequisite {
+   if [ ! -f $1 ] ; then
+      echo "Prerequisite $1 could not be found on your system."
+      printf "Installing it from repository $2 ..."
+      TMPFILE=$(mktemp)
+      curl --location $2 > $TMPFILE
+      if [ $? -ne 0 ] ; then
+         echo " FAILED."
+         echo "Could not reach remote repository via HTTP."
+         exit 1
+      fi
+      (cd / ; unzip -q -o $TMPFILE )
+      rm $TMPFILE
+      if [ -f $1 ] ; then
+         echo " done."
+      else
+         echo " FAILED."
+         exit 1
+      fi
+   fi
+}
+
+prerequisite $MAKEW__INDICATOR_IT_IS_INSTALLED $MAKEW__REPO_URL
+
+$MAKEW__WRAPPED_EXECUTABLE "$@"

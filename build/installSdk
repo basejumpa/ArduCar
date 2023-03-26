@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+SDK=Arduino-Nano-2-CH340-37f3b5b.zip
+
+SDK__REPO_LOCAL__PATH=/c/temp/${SDK}
+SDK__REPO_LOCAL__URL=file:///c/temp/${SDK}
+SDK__REPO_REMOTE__URL=https://github.com/basejumpa/arduCar_tools/raw/main//Arduino-Nano-2-CH340.zip
+
+
+if [ -f ${SDK__REPO_LOCAL__PATH} ] ; then
+   SDK__REPO_URL=${SDK__REPO_LOCAL__URL}
+else
+   echo "${SDK__REPO_LOCAL__PATH} was not found. Using remote repository"
+   SDK__REPO_URL=${SDK__REPO_REMOTE__URL}
+fi
+
+
+SDK__INSTALL_DIR=/
+if [ ! -f $1 ] ; then
+   echo "Installing $(basename $SDK__REPO_URL) from $SDK__REPO_URL onto your system to folder $SDK__INSTALL_DIR ..."
+
+   TMPFILE=$(mktemp)
+
+   printf "Downloading $(basename $SDK__REPO_URL) ..."
+   curl --location $SDK__REPO_URL > $TMPFILE
+   if [ $? -ne 0 ] ; then
+      echo " FAILED."
+      echo "Could not reach remote repository via HTTP."
+      exit 1
+   else
+      echo " done".
+   fi
+
+   printf "Unzipping $(basename $SDK__REPO_URL) ..."
+   (mkdir -p $SDK__INSTALL_DIR ; cd $SDK__INSTALL_DIR ; unzip -q -o $TMPFILE )
+   unzipExitCode=$?
+   rm $TMPFILE
+   if [ $unzipExitCode -ne 0 ] ; then
+      echo "Inflation FAILED."
+      exit 1
+   else
+      echo " done".
+      echo "Successfully installed SDK onto your system."
+      touch $1
+      exit 0
+   fi
+else
+   exit 0
+fi

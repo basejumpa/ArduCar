@@ -1,0 +1,23 @@
+#include "componentC4.h"
+
+#ifndef componentC4_init
+#define componentC4_init componentC4_init
+void componentC4_init(void){}
+#endif /* componentC4_init */
+
+#ifndef componentC4_loop
+#define componentC4_loop componentC4_loop
+void componentC4_loop(void){}
+#endif /* componentC4_loop */
+
+#ifndef componentC4_setU
+#define componentC4_setU componentC4_setU
+int componentC4_setU__args__u;
+void componentC4_setU(int u){ componentC4_setU__args__u = u; }
+#endif /* componentC4_setU */
+
+#ifndef componentC4_getY
+#define componentC4_getY componentC4_getY
+int componentC4_getY__return = 0;
+int componentC4_getY(void){ return componentC4_getY__return; }
+#endif /* componentC4_getY */

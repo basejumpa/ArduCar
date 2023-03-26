@@ -1,0 +1,141 @@
+#include "Arduino.h"
+
+static char* getNextLine_impl(void);
+
+arduino_t arduino = {
+	{ 
+		{INPUT, 0},
+		{INPUT, 0},
+		{INPUT, 0},
+		{INPUT, 0},
+		{INPUT, 0},
+		{INPUT, 0},
+		{INPUT, 0},
+		{INPUT, 0},
+		{INPUT, 0},
+		{INPUT, 0},
+		{INPUT, 0},
+		{INPUT, 0},
+		{INPUT, 0},
+	},
+	
+	{
+		{INPUT, 0},
+		{INPUT, 0},
+		{INPUT, 0},
+		{INPUT, 0},
+		{INPUT, 0},
+		{INPUT, 0},
+		{INPUT, 0},
+	},
+	
+	{
+		getNextLine_impl,
+		0
+	}
+};
+
+
+void pinMode(uint8_t p, uint8_t m){
+	arduino.D[p].mode = m;
+}
+
+void digitalWrite(uint8_t p, uint8_t v){
+	arduino.D[p].value = v;
+}
+
+int digitalRead(uint8_t p){
+	return (int)arduino.D[p].value;
+}
+
+void analogWrite(uint8_t p, int v){
+	arduino.A[p].value = v;
+}
+
+int analogRead(uint8_t p){
+	return (int)arduino.A[p].value;
+}
+
+unsigned long millis(void){ return 0; }
+
+
+#define NUM_LINES  12
+#define NUM_COLS   1024
+
+static struct {
+	struct {
+		int line;
+		int col;
+	} write;
+	struct {
+		int line;
+		int col;
+	} read;
+	int baud;
+	char content[NUM_LINES][NUM_COLS];
+} SerialBuffer = {
+	{0, 0},
+	{0, 0},
+	0,
+	{ '\0' }
+};
+
+
+static void incr_getNextLine(void){
+	if(SerialBuffer.read.line != SerialBuffer.write.line){
+		SerialBuffer.read.col = 0;
+		if(SerialBuffer.read.line < NUM_LINES)
+			++SerialBuffer.read.line;
+		else
+			SerialBuffer.read.line = 0;
+	}else{
+		while(SerialBuffer.read.col < NUM_COLS && SerialBuffer.content[SerialBuffer.read.line][SerialBuffer.read.col] != '\0')
+			++SerialBuffer.read.col;
+	}
+}
+
+static char* getNextLine_impl(void){
+	char* ret = &(SerialBuffer.content[SerialBuffer.read.line][SerialBuffer.read.col]);
+	incr_getNextLine();
+	return ret;
+}
+
+
+void Serial_mock::begin(unsigned long baud){
+	int i = 0;
+	
+	arduino.Serial.baud = baud;
+	for(; i < NUM_LINES; ++i)
+	   SerialBuffer.content[i][0] = '\0';
+	SerialBuffer.read.line  = 0;
+	SerialBuffer.read.col   = 0;
+	SerialBuffer.write.line = 0;
+	SerialBuffer.write.col  = 0;
+}
+
+static void incr_println(void){
+	SerialBuffer.write.col = 0;
+	if(SerialBuffer.write.line < NUM_LINES)
+		++SerialBuffer.write.line;
+	else
+		SerialBuffer.write.line = 0;
+}
+
+
+void Serial_mock::print(const char* in, ...){
+   const char* p = in;
+      
+   while(*p != '\0' && SerialBuffer.write.col < NUM_COLS - 1){
+	   SerialBuffer.content[SerialBuffer.write.line][SerialBuffer.write.col] = *p++;
+	   if(SerialBuffer.write.col < NUM_COLS)
+		   ++SerialBuffer.write.col;
+   }
+   SerialBuffer.content[SerialBuffer.write.line][SerialBuffer.write.col] = '\0';
+}
+
+void Serial_mock::println(const char* in, ...){
+	Serial.print(in);
+	incr_println();
+}
+
+Serial_mock Serial;

@@ -1,0 +1,23 @@
+#include "componentC5.h"
+
+#ifndef componentC5_init
+#define componentC5_init componentC5_init
+void componentC5_init(void){}
+#endif /* componentC5_init */
+
+#ifndef componentC5_loop
+#define componentC5_loop componentC5_loop
+void componentC5_loop(void){}
+#endif /* componentC5_loop */
+
+#ifndef componentC5_setU
+#define componentC5_setU componentC5_setU
+int componentC5_setU__args__u;
+void componentC5_setU(int u){ componentC5_setU__args__u = u; }
+#endif /* componentC5_setU */
+
+#ifndef componentC5_getY
+#define componentC5_getY componentC5_getY
+int componentC5_getY__return = 0;
+int componentC5_getY(void){ return componentC5_getY__return; }
+#endif /* componentC5_getY */

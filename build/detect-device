@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+position=$1
+
+PORT=$(\
+python -m serial.tools.list_ports \
+          --quiet \
+          --verbose \
+      | grep -oP "CH340 \(\KCOM[0-9]+" \
+      | sed -n "$position p" \
+)
+
+if [ -z "$PORT" ]; then
+    echo "ERROR: No device found on position $position. (First position is 1.)" >&2
+    exit 1;
+else
+    echo $PORT
+fi
+
+exit 0

@@ -1,0 +1,23 @@
+#include "componentE1.h"
+
+#ifndef componentE1_init
+#define componentE1_init componentE1_init
+void componentE1_init(void){}
+#endif /* componentE1_init */
+
+#ifndef componentE1_loop
+#define componentE1_loop componentE1_loop
+void componentE1_loop(void){}
+#endif /* componentE1_loop */
+
+#ifndef componentE1_setU
+#define componentE1_setU componentE1_setU
+int componentE1_setU__args__u;
+void componentE1_setU(int u){ componentE1_setU__args__u = u; }
+#endif /* componentE1_setU */
+
+#ifndef componentE1_getY
+#define componentE1_getY componentE1_getY
+int componentE1_getY__return = 0;
+int componentE1_getY(void){ return componentE1_getY__return; }
+#endif /* componentE1_getY */

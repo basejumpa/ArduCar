@@ -1,0 +1,23 @@
+#include "packageB.h"
+
+#ifndef packageB_init
+#define packageB_init packageB_init
+void packageB_init(void){}
+#endif /* packageB_init */
+
+#ifndef packageB_loop
+#define packageB_loop packageB_loop
+void packageB_loop(void){}
+#endif /* packageB_loop */
+
+#ifndef packageB_setU
+#define packageB_setU packageB_setU
+int packageB_setU__args__u = 0;
+void packageB_setU(int u){ packageB_setU__args__u = u; }
+#endif /* packageB_setU */
+
+#ifndef packageB_getY
+#define packageB_getY packageB_getY
+int packageB_getY__return;
+int packageB_getY(void){ return packageB_getY__return; }
+#endif /* packageB_getY */
