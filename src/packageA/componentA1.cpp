@@ -1,6 +1,6 @@
 #include "componentA1.h"
  
-static int state = led_state_off;
+static int state = led_state_on;
 
 void componentA1_init(void){
 }
